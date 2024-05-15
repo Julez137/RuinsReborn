@@ -26,6 +26,7 @@ public class LightManager : MonoBehaviour
     public void EnableLights(bool isEnabled)
     {
         enableLights = isEnabled;
+        if (lights == null) return;
         foreach (var light in lights)
                 light.enabled = enableLights;
     }

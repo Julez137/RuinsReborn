@@ -18,7 +18,7 @@ MonoBehaviour:
     value: 1
   intensity:
     overrideState: 1
-    value: 3
+    value: 1
   threshold:
     overrideState: 1
     value: 1
@@ -232,10 +232,10 @@ MonoBehaviour:
     value: {x: 0.5, y: 0.5}
   intensity:
     overrideState: 1
-    value: 0.24
+    value: 0.284
   smoothness:
     overrideState: 1
-    value: 0.6
+    value: 1
   roundness:
     overrideState: 0
     value: 1
@@ -289,13 +289,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b77c5407dc277943b591ade9e6b18c5, type: 3}
   m_Name: LensDistortion
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   enabled:
     overrideState: 1
     value: 1
   intensity:
     overrideState: 1
-    value: 19
+    value: 15.4
   intensityX:
     overrideState: 1
     value: 1
@@ -1609,8 +1609,8 @@ MonoBehaviour:
       - 0.5134593
       - 0.51307315
       - 0.5126546
-      - 0.51220274
-      - 0.5117165
+      - 0.5122028
+      - 0.51171654
       - 0.5111948
       - 0.51063657
       - 0.5100408
@@ -1627,11 +1627,11 @@ MonoBehaviour:
       - 0.50070804
       - 0.49957958
       - 0.49839994
-      - 0.497168
+      - 0.49716803
       - 0.49588278
       - 0.49454316
       - 0.49314812
-      - 0.4916966
+      - 0.49169663
       - 0.4901864
       - 0.48853138
       - 0.48668206
@@ -1676,7 +1676,7 @@ MonoBehaviour:
     value: 1
   focusDistance:
     overrideState: 1
-    value: 500
+    value: 100
   aperture:
     overrideState: 1
     value: 8
@@ -1713,7 +1713,7 @@ MonoBehaviour:
     value: 2.5
   keyValue:
     overrideState: 1
-    value: 0.951581
+    value: 0.94199175
   eyeAdaptation:
     overrideState: 1
     value: 0
