@@ -24,9 +24,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [SerializeField] private CurveControlledBob m_HeadBob = new CurveControlledBob();
         [SerializeField] private LerpControlledBob m_JumpBob = new LerpControlledBob();
         [SerializeField] private float m_StepInterval = 0f;
+        private float originalStepInterval;
         [SerializeField] private AudioClip[] m_FootstepSounds = new AudioClip[0];    // an array of footstep sounds that will be randomly selected from.
         [SerializeField] private AudioClip m_JumpSound = null;           // the sound played when character leaves the ground.
         [SerializeField] private AudioClip m_LandSound = null;           // the sound played when character touches back on ground.
+        [SerializeField] private AnimationParametersController animationController;
 
         private Camera m_Camera;
         private bool m_Jump = true;
@@ -55,6 +57,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_Jumping = false;
             m_AudioSource = GetComponent<AudioSource>();
 			m_MouseLook.Init(transform , m_Camera.transform);
+            originalStepInterval = m_StepInterval;
         }
 
 
@@ -127,6 +130,17 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
             m_CollisionFlags = m_CharacterController.Move(m_MoveDir*Time.fixedDeltaTime);
 
+            // Update stepinterval based on walking boolean
+            if (!m_IsWalking && m_RunSpeed >= m_WalkSpeed && m_StepInterval == originalStepInterval) 
+            {
+                float stepMultiplier = m_RunSpeed / m_WalkSpeed;
+                m_StepInterval /= stepMultiplier;
+            }
+            else
+            {
+                if (m_IsWalking)
+                    m_StepInterval = originalStepInterval;
+            }
             ProgressStepCycle(speed);
             UpdateCameraPosition(speed);
 
@@ -204,8 +218,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private void GetInput(out float speed)
         {
             // Read input
-            float horizontal = CrossPlatformInputManager.GetAxis("Horizontal");
-            float vertical = CrossPlatformInputManager.GetAxis("Vertical");
+            //float horizontal = CrossPlatformInputManager.GetAxis("Horizontal");
+            //float vertical = CrossPlatformInputManager.GetAxis("Vertical");
+            float horizontal = CrossPlatformInputManager.GetAxisRaw("Horizontal");
+            float vertical = CrossPlatformInputManager.GetAxisRaw("Vertical");
 
             bool waswalking = m_IsWalking;
 
@@ -230,6 +246,27 @@ namespace UnityStandardAssets.Characters.FirstPerson
             {
                 StopAllCoroutines();
                 StartCoroutine(!m_IsWalking ? m_FovKick.FOVKickUp() : m_FovKick.FOVKickDown());
+            }
+
+            UpdateAnimations(horizontal != 0 || vertical != 0);
+        }
+
+        void UpdateAnimations(bool isMoving)
+        {
+            if (isMoving && m_IsWalking)
+            {
+                animationController.SetBoolTrue("Walk");
+                animationController.SetBoolFalse("Run");
+            }
+            else if (isMoving && !m_IsWalking)
+            {
+                animationController.SetBoolTrue("Run");
+                animationController.SetBoolTrue("Walk");
+            }
+            else
+            {
+                animationController.SetBoolFalse("Walk");
+                animationController.SetBoolFalse("Run");
             }
         }
 

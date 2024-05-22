@@ -471,6 +471,28 @@ MonoBehaviour:
     sessionPlaybackState: 1
     m_terrainsFoldedOut: 0
     m_serializedExternalAction: 
+  - m_description: Clearing - Trees Details GOs, AllTerrains, AnySource
+    m_operationType: 3
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20240430 - 171439
+    m_operationDateTime: 5/16/2024 7:29:19 PM
+    scriptableObjectAssetGUID: a8d2391dc3497684b812b049d6e5103d
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Spawning - Alpine Meadow-Textures(Clone)
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20240430 - 171439
+    m_operationDateTime: 5/16/2024 7:29:25 PM
+    scriptableObjectAssetGUID: b87383aeee8a15447b398aeafb5666b6
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
   m_terrainMinMaxCache:
   - guid: 28abb4f20c894d945a575cfedcd790aa
     isWorldmap: 0
