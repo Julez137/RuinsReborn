@@ -2,14 +2,18 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &-9170704453436697477
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: PW_Detail_WildGrass_35378_26252_28226_37216_30502
-  m_Shader: {fileID: 4800000, guid: 72462e7bb7591b4418a705a37fe544ac, type: 3}
-  m_ShaderKeywords: _ALPHATEST_ON _DISABLE_SSR_TRANSPARENT _DOUBLESIDED_ON _PW_SF_WIND_ON
+  m_Shader: {fileID: -6465566751694194690, guid: 00efb9683d88ef54f91cfd4c0e362b1b, type: 3}
+  m_ValidKeywords:
+  - _PW_SF_WIND_ON
+  m_InvalidKeywords:
+  - _DISABLE_SSR_TRANSPARENT
+  - _DOUBLESIDED_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 1
@@ -133,6 +137,7 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
     - BOOLEAN_39538BE377C8401B940482B739880ACC: 0
     - Vector1_95d7235b4e28472c8b43574046d10a99: 0
@@ -170,6 +175,7 @@ Material:
     - _DisplacementLockObjectScale: 1
     - _DisplacementLockTilingScale: 1
     - _DisplacementMode: 0
+    - _Distortion: 10
     - _DistortionBlendMode: 0
     - _DistortionBlurBlendMode: 0
     - _DistortionBlurDstBlend: 1
@@ -234,12 +240,16 @@ Material:
     - _PW_SSSDistortion: 0.5
     - _PW_SSSPower: 1
     - _PW_ShaderID: 0
+    - _Power: 10
+    - _QueueControl: 0
+    - _QueueOffset: 0
     - _RayTracing: 0
     - _ReceivesSSR: 1
     - _ReceivesSSRTransparent: 0
     - _RefractionModel: 0
     - _RenderQueueType: 1
     - _RequireSplitLighting: 0
+    - _Scale: 10
     - _Smoothness: 0.5
     - _SmoothnessRemapMax: 1
     - _SmoothnessRemapMin: 0
@@ -288,8 +298,7 @@ Material:
     - _Color: {r: 1.4980392, g: 1.4980392, b: 1.4980392, a: 1}
     - _ColorA: {r: 1, g: 0.033018887, b: 0.033018887, a: 1}
     - _ColorB: {r: 0.46226418, g: 0.032707367, b: 0.032707367, a: 1}
-    - _DiffusionProfileAsset: {r: -9.2396434e+33, g: 2.6337685e-36, b: 2.14897e-38,
-        a: 6.8169325e-31}
+    - _DiffusionProfileAsset: {r: -9.2396434e+33, g: 2.6337685e-36, b: 2.14897e-38, a: 6.8169325e-31}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissiveColor: {r: 0, g: 0, b: 0, a: 1}
@@ -302,6 +311,7 @@ Material:
     - _PW_WindTreeFlex: {r: 0.7, g: 0.7, b: 0.06, a: 0}
     - _PW_WindTreeFrequency: {r: 0.01, g: 0.35, b: 2, a: 0}
     - _PW_WindTreeWidthHeight: {r: 0.4, g: 0.8, b: 0, a: 0}
+    - _SSSColor: {r: 1, g: 1, b: 1, a: 0}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
     - _ThicknessRemap: {r: 0, g: 1, b: 0, a: 0}
     - _TransmittanceColor: {r: 1, g: 1, b: 1, a: 1}
@@ -459,6 +469,8 @@ MonoBehaviour:
   m_drawCPUSpawnLocations: 0
   m_debugColor: {r: 1, g: 0.35174727, b: 0, a: 1}
   m_debugCellSize: 0.54285717
+  m_boundsHeightMultiplier: 1
+  m_padding: 2
   m_subCellDivision: 8
 --- !u!114 &-5496943226966295608
 MonoBehaviour:
@@ -592,18 +604,25 @@ MonoBehaviour:
   m_drawCPUSpawnLocations: 0
   m_debugColor: {r: 0.3824453, g: 0.56887734, b: 0.72808945, a: 1}
   m_debugCellSize: 0.45714286
+  m_boundsHeightMultiplier: 1
+  m_padding: 2
   m_subCellDivision: 16
 --- !u!21 &-4927875426409217463
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: PW_Grass_Phleum_PratenseLOD0_35386_26260_28234_37224_30510
   m_Shader: {fileID: 4800000, guid: 72462e7bb7591b4418a705a37fe544ac, type: 3}
-  m_ShaderKeywords: _ALPHATEST_ON _DISABLE_DECALS _DISABLE_SSR_TRANSPARENT _DOUBLESIDED_ON
-    _PW_SF_WIND_ON
+  m_ValidKeywords:
+  - _PW_SF_WIND_ON
+  m_InvalidKeywords:
+  - _ALPHATEST_ON
+  - _DISABLE_DECALS
+  - _DISABLE_SSR_TRANSPARENT
+  - _DOUBLESIDED_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 1
@@ -714,6 +733,7 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
     - BOOLEAN_39538BE377C8401B940482B739880ACC: 0
     - _AORemapMax: 1
@@ -840,8 +860,7 @@ Material:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColorMap_MipInfo: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _DiffusionProfileAsset: {r: -9.2396434e+33, g: 2.6337685e-36, b: 2.14897e-38,
-        a: 6.8169325e-31}
+    - _DiffusionProfileAsset: {r: -9.2396434e+33, g: 2.6337685e-36, b: 2.14897e-38, a: 6.8169325e-31}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissiveColor: {r: 0, g: 0, b: 0, a: 1}
@@ -1010,6 +1029,8 @@ MonoBehaviour:
   m_drawCPUSpawnLocations: 0
   m_debugColor: {r: 1, g: 0.35174727, b: 0, a: 1}
   m_debugCellSize: 0.71428573
+  m_boundsHeightMultiplier: 1
+  m_padding: 2
   m_subCellDivision: 8
 --- !u!114 &11400000
 MonoBehaviour:
@@ -1032,6 +1053,14 @@ MonoBehaviour:
     m_detailPrototypes:
     - m_name: Grass_Phleum_Grass
       m_renderMode: 2
+      m_useInstancing: 0
+      m_alignToGround: 0
+      m_density: 1
+      m_holeEdgePadding: 0
+      m_noiseSeed: 0
+      m_positionJitter: 0
+      m_targetCoverage: 1
+      m_useDensityScaling: 1
       m_detailProtoype: {fileID: 0}
       m_detailPrototypeFileName: 
       m_detailTexture: {fileID: 2800000, guid: 53d09239d3b57614691b300c27af1dc2, type: 3}
@@ -1069,6 +1098,14 @@ MonoBehaviour:
       m_dnaFoldedOut: 0
     - m_name: PW_Grass_White_Flower_04
       m_renderMode: 2
+      m_useInstancing: 0
+      m_alignToGround: 0
+      m_density: 1
+      m_holeEdgePadding: 0
+      m_noiseSeed: 0
+      m_positionJitter: 0
+      m_targetCoverage: 1
+      m_useDensityScaling: 1
       m_detailProtoype: {fileID: 0}
       m_detailPrototypeFileName: 
       m_detailTexture: {fileID: 2800000, guid: 33e5a3d2c6a3e1c45a43cfb130223341, type: 3}
@@ -1099,6 +1136,14 @@ MonoBehaviour:
       m_dnaFoldedOut: 0
     - m_name: PW_Grass_Patch_02
       m_renderMode: 2
+      m_useInstancing: 0
+      m_alignToGround: 0
+      m_density: 1
+      m_holeEdgePadding: 0
+      m_noiseSeed: 0
+      m_positionJitter: 0
+      m_targetCoverage: 1
+      m_useDensityScaling: 1
       m_detailProtoype: {fileID: 0}
       m_detailPrototypeFileName: 
       m_detailTexture: {fileID: 2800000, guid: d2473f86f1367b04db57ea21726d18d8, type: 3}
@@ -1143,6 +1188,14 @@ MonoBehaviour:
       m_dnaFoldedOut: 0
     - m_name: PW_Grass_Patch_01
       m_renderMode: 2
+      m_useInstancing: 0
+      m_alignToGround: 0
+      m_density: 1
+      m_holeEdgePadding: 0
+      m_noiseSeed: 0
+      m_positionJitter: 0
+      m_targetCoverage: 1
+      m_useDensityScaling: 1
       m_detailProtoype: {fileID: 0}
       m_detailPrototypeFileName: 
       m_detailTexture: {fileID: 2800000, guid: b0dd4f58f57483140922be61a08cc83d, type: 3}
@@ -1173,6 +1226,14 @@ MonoBehaviour:
       m_dnaFoldedOut: 0
     - m_name: New Terrain Detail 1
       m_renderMode: 2
+      m_useInstancing: 0
+      m_alignToGround: 0
+      m_density: 1
+      m_holeEdgePadding: 0
+      m_noiseSeed: 0
+      m_positionJitter: 0
+      m_targetCoverage: 1
+      m_useDensityScaling: 1
       m_detailProtoype: {fileID: 0}
       m_detailPrototypeFileName: 
       m_detailTexture: {fileID: 0}
@@ -1196,6 +1257,14 @@ MonoBehaviour:
       m_dnaFoldedOut: 0
     - m_name: PW_Grass_Patch_03
       m_renderMode: 2
+      m_useInstancing: 0
+      m_alignToGround: 0
+      m_density: 1
+      m_holeEdgePadding: 0
+      m_noiseSeed: 0
+      m_positionJitter: 0
+      m_targetCoverage: 1
+      m_useDensityScaling: 1
       m_detailProtoype: {fileID: 0}
       m_detailPrototypeFileName: 
       m_detailTexture: {fileID: 2800000, guid: a67efdd4a69262449abb3f5c4dd6cd5b, type: 3}
@@ -1622,6 +1691,7 @@ MonoBehaviour:
       - m_active: 1
         m_invert: 1
         m_type: 3
+        m_selectedTreeSpawnRuleGUIDs: []
         m_treeSpawnRuleGUID: 1ba518f6-6276-4b7d-a198-7c7ef0bc5dd4
         m_tag: PW - Nature
         m_Radius: 8.6
@@ -1691,6 +1761,11 @@ MonoBehaviour:
     m_usesBoxStandIn: 0
     m_boundsCollisionCheck: 0
     m_changesHeightmap: 0
+    m_startOffsetX: 0
+    m_startOffsetZ: 0
+    m_collisionLayersToClear:
+      serializedVersion: 2
+      m_Bits: 0
   - m_name: Grass Patch 4
     m_guid: 65c0a7e6-22ee-4f3c-9803-fd723f221850
     m_useExtendedSpawn: 0
@@ -2520,6 +2595,11 @@ MonoBehaviour:
     m_usesBoxStandIn: 0
     m_boundsCollisionCheck: 0
     m_changesHeightmap: 0
+    m_startOffsetX: 0
+    m_startOffsetZ: 0
+    m_collisionLayersToClear:
+      serializedVersion: 2
+      m_Bits: 0
   - m_name: PW_Grass_White_Flower_04
     m_guid: ff5baa02-40b2-4db2-a094-f2690e1d416c
     m_useExtendedSpawn: 0
@@ -2962,6 +3042,11 @@ MonoBehaviour:
     m_usesBoxStandIn: 0
     m_boundsCollisionCheck: 0
     m_changesHeightmap: 0
+    m_startOffsetX: 0
+    m_startOffsetZ: 0
+    m_collisionLayersToClear:
+      serializedVersion: 2
+      m_Bits: 0
   - m_name: Grass_Phleum_Grass
     m_guid: 1f11cb71-4ce4-459e-9f44-e81b83e3dcaf
     m_useExtendedSpawn: 0
@@ -3593,6 +3678,11 @@ MonoBehaviour:
     m_usesBoxStandIn: 0
     m_boundsCollisionCheck: 0
     m_changesHeightmap: 0
+    m_startOffsetX: 0
+    m_startOffsetZ: 0
+    m_collisionLayersToClear:
+      serializedVersion: 2
+      m_Bits: 0
   - m_name: PW_Grass_Patch_03
     m_guid: 91b0b270-74d1-4326-8d11-6a227abfb3ce
     m_useExtendedSpawn: 0
@@ -4035,6 +4125,11 @@ MonoBehaviour:
     m_usesBoxStandIn: 0
     m_boundsCollisionCheck: 0
     m_changesHeightmap: 0
+    m_startOffsetX: 0
+    m_startOffsetZ: 0
+    m_collisionLayersToClear:
+      serializedVersion: 2
+      m_Bits: 0
   m_showGizmos: 1
   m_showDebug: 0
   m_showTerrainHelper: 1
@@ -4219,6 +4314,7 @@ MonoBehaviour:
     - m_active: 1
       m_invert: 0
       m_type: 2
+      m_selectedTreeSpawnRuleGUIDs: []
       m_treeSpawnRuleGUID: c4949485-97e3-4d57-a1cf-7c3bcdaa6a5d
       m_tag: 
       m_Radius: 0.75
@@ -4231,6 +4327,7 @@ MonoBehaviour:
     - m_active: 1
       m_invert: 0
       m_type: 2
+      m_selectedTreeSpawnRuleGUIDs: []
       m_treeSpawnRuleGUID: c4949485-97e3-4d57-a1cf-7c3bcdaa6a5d
       m_tag: 
       m_Radius: 0.75
@@ -4244,6 +4341,7 @@ MonoBehaviour:
     - m_active: 1
       m_invert: 0
       m_type: 3
+      m_selectedTreeSpawnRuleGUIDs: []
       m_treeSpawnRuleGUID: c4949485-97e3-4d57-a1cf-7c3bcdaa6a5d
       m_tag: 
       m_Radius: 0.75
@@ -5003,6 +5101,8 @@ MonoBehaviour:
   m_drawCPUSpawnLocations: 0
   m_debugColor: {r: 0.2639735, g: 0.8268531, b: 0.49662057, a: 1}
   m_debugCellSize: 0.2
+  m_boundsHeightMultiplier: 1
+  m_padding: 2
   m_subCellDivision: 1
 --- !u!114 &2088934971083514244
 MonoBehaviour:
@@ -5136,17 +5236,24 @@ MonoBehaviour:
   m_drawCPUSpawnLocations: 0
   m_debugColor: {r: 0.39835626, g: 0.24507894, b: 0.88388264, a: 1}
   m_debugCellSize: 0.37142858
+  m_boundsHeightMultiplier: 1
+  m_padding: 2
   m_subCellDivision: 1
 --- !u!21 &2341071540960764565
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: PW_Detail_WildGrass_35380_26254_28228_37218_30504
   m_Shader: {fileID: 4800000, guid: 72462e7bb7591b4418a705a37fe544ac, type: 3}
-  m_ShaderKeywords: _ALPHATEST_ON _DISABLE_SSR_TRANSPARENT _DOUBLESIDED_ON _PW_SF_WIND_ON
+  m_ValidKeywords:
+  - _PW_SF_WIND_ON
+  m_InvalidKeywords:
+  - _ALPHATEST_ON
+  - _DISABLE_SSR_TRANSPARENT
+  - _DOUBLESIDED_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 1
@@ -5270,6 +5377,7 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
     - BOOLEAN_39538BE377C8401B940482B739880ACC: 0
     - Vector1_95d7235b4e28472c8b43574046d10a99: 0
@@ -5425,8 +5533,7 @@ Material:
     - _Color: {r: 1.4980392, g: 1.4980392, b: 1.4980392, a: 1}
     - _ColorA: {r: 1, g: 0.033018887, b: 0.033018887, a: 1}
     - _ColorB: {r: 0.46226418, g: 0.032707367, b: 0.032707367, a: 1}
-    - _DiffusionProfileAsset: {r: -9.2396434e+33, g: 2.6337685e-36, b: 2.14897e-38,
-        a: 6.8169325e-31}
+    - _DiffusionProfileAsset: {r: -9.2396434e+33, g: 2.6337685e-36, b: 2.14897e-38, a: 6.8169325e-31}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissiveColor: {r: 0, g: 0, b: 0, a: 1}
@@ -5596,17 +5703,24 @@ MonoBehaviour:
   m_drawCPUSpawnLocations: 0
   m_debugColor: {r: 1, g: 0.35174727, b: 0, a: 1}
   m_debugCellSize: 0.62857145
+  m_boundsHeightMultiplier: 1
+  m_padding: 2
   m_subCellDivision: 8
 --- !u!21 &3566544452372028761
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: PW_Detail_WildGrass_35382_26256_28230_37220_30506
   m_Shader: {fileID: 4800000, guid: 72462e7bb7591b4418a705a37fe544ac, type: 3}
-  m_ShaderKeywords: _ALPHATEST_ON _DISABLE_SSR_TRANSPARENT _DOUBLESIDED_ON _PW_SF_WIND_ON
+  m_ValidKeywords:
+  - _PW_SF_WIND_ON
+  m_InvalidKeywords:
+  - _ALPHATEST_ON
+  - _DISABLE_SSR_TRANSPARENT
+  - _DOUBLESIDED_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 1
@@ -5730,6 +5844,7 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
     - BOOLEAN_39538BE377C8401B940482B739880ACC: 0
     - Vector1_95d7235b4e28472c8b43574046d10a99: 0
@@ -5885,8 +6000,7 @@ Material:
     - _Color: {r: 1.4980392, g: 1.4980392, b: 1.4980392, a: 1}
     - _ColorA: {r: 1, g: 0.033018887, b: 0.033018887, a: 1}
     - _ColorB: {r: 0.46226418, g: 0.032707367, b: 0.032707367, a: 1}
-    - _DiffusionProfileAsset: {r: -9.2396434e+33, g: 2.6337685e-36, b: 2.14897e-38,
-        a: 6.8169325e-31}
+    - _DiffusionProfileAsset: {r: -9.2396434e+33, g: 2.6337685e-36, b: 2.14897e-38, a: 6.8169325e-31}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissiveColor: {r: 0, g: 0, b: 0, a: 1}
@@ -5908,15 +6022,20 @@ Material:
   m_BuildTextureStacks: []
 --- !u!21 &5450128247777604781
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: PW_Detail_WildGrass_Billboard_35384_26258_28232_37222_30508
   m_Shader: {fileID: 4800000, guid: 72462e7bb7591b4418a705a37fe544ac, type: 3}
-  m_ShaderKeywords: _ALPHATEST_ON _DISABLE_DECALS _DISABLE_SSR_TRANSPARENT _DOUBLESIDED_ON
-    _PW_SF_WIND_ON
+  m_ValidKeywords:
+  - _PW_SF_WIND_ON
+  m_InvalidKeywords:
+  - _ALPHATEST_ON
+  - _DISABLE_DECALS
+  - _DISABLE_SSR_TRANSPARENT
+  - _DOUBLESIDED_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 1
@@ -6040,6 +6159,7 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
     - BOOLEAN_39538BE377C8401B940482B739880ACC: 0
     - Vector1_95d7235b4e28472c8b43574046d10a99: 0
@@ -6195,8 +6315,7 @@ Material:
     - _Color: {r: 2, g: 2, b: 2, a: 1}
     - _ColorA: {r: 0.5188679, g: 0.19824672, b: 0.19824672, a: 1}
     - _ColorB: {r: 0.3301887, g: 0.20714667, b: 0.20714667, a: 1}
-    - _DiffusionProfileAsset: {r: -9.2396434e+33, g: 2.6337685e-36, b: 2.14897e-38,
-        a: 6.8169325e-31}
+    - _DiffusionProfileAsset: {r: -9.2396434e+33, g: 2.6337685e-36, b: 2.14897e-38, a: 6.8169325e-31}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissiveColor: {r: 0, g: 0, b: 0, a: 1}
@@ -6348,18 +6467,25 @@ MonoBehaviour:
   m_drawCPUSpawnLocations: 0
   m_debugColor: {r: 0.74598616, g: 0.6146796, b: 0.25626865, a: 1}
   m_debugCellSize: 0.2857143
+  m_boundsHeightMultiplier: 1
+  m_padding: 2
   m_subCellDivision: 1
 --- !u!21 &7398054996858385821
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: PW_Grass_Phleum_PratenseLOD1_35388_26262_28236_37226_30512
   m_Shader: {fileID: 4800000, guid: 72462e7bb7591b4418a705a37fe544ac, type: 3}
-  m_ShaderKeywords: _ALPHATEST_ON _DISABLE_DECALS _DISABLE_SSR_TRANSPARENT _DOUBLESIDED_ON
-    _PW_SF_WIND_ON
+  m_ValidKeywords:
+  - _PW_SF_WIND_ON
+  m_InvalidKeywords:
+  - _ALPHATEST_ON
+  - _DISABLE_DECALS
+  - _DISABLE_SSR_TRANSPARENT
+  - _DOUBLESIDED_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 1
@@ -6470,6 +6596,7 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
     - BOOLEAN_39538BE377C8401B940482B739880ACC: 0
     - _AORemapMax: 1
@@ -6596,8 +6723,7 @@ Material:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColorMap_MipInfo: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _DiffusionProfileAsset: {r: -9.2396434e+33, g: 2.6337685e-36, b: 2.14897e-38,
-        a: 6.8169325e-31}
+    - _DiffusionProfileAsset: {r: -9.2396434e+33, g: 2.6337685e-36, b: 2.14897e-38, a: 6.8169325e-31}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissiveColor: {r: 0, g: 0, b: 0, a: 1}
