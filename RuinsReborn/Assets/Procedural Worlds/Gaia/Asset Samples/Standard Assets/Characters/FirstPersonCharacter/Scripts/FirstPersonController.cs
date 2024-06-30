@@ -17,7 +17,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [SerializeField] private float m_JumpSpeed = 0f;
         [SerializeField] private float m_StickToGroundForce = 0f;
         [SerializeField] private float m_GravityMultiplier = 0f;
-        [SerializeField] private MouseLook m_MouseLook = new MouseLook();
+        public MouseLook m_MouseLook = new MouseLook();
         [SerializeField] private bool m_UseFovKick = true;
         [SerializeField] private FOVKick m_FovKick = new FOVKick();
         [SerializeField] private bool m_UseHeadBob = true;
