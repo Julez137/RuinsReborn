@@ -29,4 +29,9 @@ public class Inventory : MonoBehaviour
             return true;
         }
     }
+
+    public void OnItemPickUp(PickableItem item)
+    {
+        // Store Item in inventory
+    }
 }
