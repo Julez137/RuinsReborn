@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class Interactable : MonoBehaviour
 {
-    protected Collider collider;
+    protected Collider thisCollider;
     [Tooltip("The name of the object. This will be displayed in UI menus")]
     public string objectName;
     [Tooltip("The text being displayed when the object can be interactable. Template: Press <Key> to [insert text here].")]
@@ -14,14 +14,14 @@ public abstract class Interactable : MonoBehaviour
 
     private void Awake()
     {
-        collider = GetComponent<Collider>();
-        if (collider == null) Debug.LogError($"{gameObject.name} || No collider found on this object. Add a collider to interact with it.");
+        thisCollider = GetComponent<Collider>();
+        if (thisCollider == null) Debug.LogError($"{gameObject.name} || No collider found on this object. Add a collider to interact with it.");
     }
     public abstract void OnItemInteracted();
 
     public void EnableCollider(bool isEnabled)
     {
-        collider.enabled = isEnabled;
+        thisCollider.enabled = isEnabled;
     }
 
     public void OnItemLook(KeyCode interactableKeyInput)
@@ -32,5 +32,7 @@ public abstract class Interactable : MonoBehaviour
             return;
         }
         ToolTip.instance.ShowText($"Press '{interactableKeyInput}' to {interactableText}.", textWidth);
+
+        if (Input.GetKeyDown(interactableKeyInput)) OnItemInteracted();
     }
 }

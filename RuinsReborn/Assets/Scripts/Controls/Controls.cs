@@ -15,6 +15,8 @@ public class Controls : MonoBehaviour
     [SerializeField] float pickUpRadius;
     [Header("Runtime Info")]
     public bool isMenuOpen = false;
+    [SerializeField] Interactable closestItem;
+    [SerializeField] Collider[] possibleItems;
     FirstPersonController firstPersonController;
     private float xLookSensitivity = 0f;
     private float yLookSensitivity = 0f;
@@ -23,17 +25,28 @@ public class Controls : MonoBehaviour
         firstPersonController = GetComponent<FirstPersonController>();
         if (firstPersonController == null)
         {
-            Debug.LogWarning($"{gameObject.name} || Controls - FirstPersonController not found. Mouse look won't disable on certain actions");
+            Debug.LogWarning($"{gameObject.name} || Controls - FirstPersonController not found. Certain actions involving the camera won't work");
         }
         else
         {
-            xLookSensitivity = firstPersonController.m_MouseLook.XSensitivity;
-            yLookSensitivity = firstPersonController.m_MouseLook.YSensitivity;
+            xLookSensitivity = firstPersonController.MouseLook.XSensitivity;
+            yLookSensitivity = firstPersonController.MouseLook.YSensitivity;
         }
-        UpdateCursor();
+        ToolTip.instance.HideText();
+        this.DelayFrames(1, () => UpdateCursor());
     }
 
-    private void FixedUpdate()
+    private void OnDrawGizmosSelected()
+    {
+        if (firstPersonController == null) return;
+        if (firstPersonController.FovKick.Camera == null) return;
+        Vector3 pos = firstPersonController.FovKick.Camera.transform.position;
+        Vector3 dir = firstPersonController.FovKick.Camera.transform.forward * 5;
+        Gizmos.color = Color.red;
+        Gizmos.DrawRay(pos, dir);
+    }
+
+    private void Update()
     {
         LookForInteractable();
         // Inventory
@@ -46,12 +59,13 @@ public class Controls : MonoBehaviour
 
     void UpdateCursor()
     {
+        
         Cursor.lockState = isMenuOpen ? CursorLockMode.Confined : CursorLockMode.Locked;
         Cursor.visible = isMenuOpen;
         if (firstPersonController != null)
         {
-            firstPersonController.m_MouseLook.XSensitivity = isMenuOpen ? 0f : xLookSensitivity;
-            firstPersonController.m_MouseLook.YSensitivity = isMenuOpen ? 0f : yLookSensitivity;
+            firstPersonController.MouseLook.XSensitivity = isMenuOpen ? 0f : xLookSensitivity;
+            firstPersonController.MouseLook.YSensitivity = isMenuOpen ? 0f : yLookSensitivity;
         }
     }
 
@@ -60,28 +74,33 @@ public class Controls : MonoBehaviour
         // Check if the fps Controller is referenced
         if (firstPersonController == null) return;
         // Check if the menu is open or if the camera is referenced
-        if (isMenuOpen || firstPersonController.m_FovKick.Camera == null) return;
+        if (isMenuOpen || firstPersonController.FovKick.Camera == null) return;
         RaycastHit hit;
-        Vector3 pos = firstPersonController.m_FovKick.Camera.transform.position;
-        Vector3 dir = transform.TransformDirection(firstPersonController.m_FovKick.Camera.transform.forward) * 5;
+        Vector3 pos = firstPersonController.FovKick.Camera.transform.position;
+        Vector3 dir = firstPersonController.FovKick.Camera.transform.forward * 5;
 
         // Raycast a certain distance to check if it hits anything other than the player
-        if (Physics.Raycast(pos, dir, out hit, raycastDistance, ignoreLayer))
+        if (Physics.Raycast(pos, dir, out hit, raycastDistance, ~ignoreLayer))
         {
             // Do nothing if nothing is hit
             if (hit.collider != null)
             {
                 float closestDistance = pickUpRadius;
                 float currentDistance = 0;
-                Interactable closestItem = null;
+                closestItem = null;
                 // Get all items that is in the interactable radius
-                Collider[] possibleItems = Physics.OverlapSphere(hit.point, pickUpRadius, ignoreLayer);
+                possibleItems = Physics.OverlapSphere(hit.point, pickUpRadius, ~ignoreLayer);
                 foreach (var item in possibleItems)
                 {
                     // Check to see if the currently checked item is a interactable item
-                    Interactable possibleItem = item.GetComponent<Interactable>();
+                    Interactable possibleItem = item.gameObject.GetComponent<Interactable>();
                     // Skip to next object if this item is not a interactable item
-                    if (possibleItem == null) continue;
+                    if (possibleItem == null)
+                    {
+                        //Debug.Log($"{gameObject.name} || {item.gameObject.name} does not have an Interactable component");
+                        continue;
+                    }
+                    //Debug.Log($"{gameObject.name} || {item.gameObject.name} has an Interactable component");
                     // Get current distance between current pickable item and the original hit point
                     currentDistance = Vector3.Distance(hit.point, possibleItem.transform.position);
                     // Set closest item values
@@ -102,12 +121,14 @@ public class Controls : MonoBehaviour
                 // Tell the pop-op UI to show instruction to pick up item
                 closestItem.OnItemLook(interactKey);
 
-                // Interact with items
+                // Interact with items - for debugging
                 if (Input.GetKeyDown(interactKey))
                 {
+                    //Debug.Log($"{gameObject.name} || Interact key pressed");
                     if (isMenuOpen) return;
                 }
             }
         }
+        else ToolTip.instance.HideText();
     }
 }

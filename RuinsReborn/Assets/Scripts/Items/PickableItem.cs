@@ -13,6 +13,8 @@ public class PickableItem : Interactable
     public override void OnItemInteracted()
     {
         // Disable gameobject
+        Debug.Log($"{gameObject.name} || Picked Up");
+        gameObject.SetActive(false);
         // Tell Inventory that this item is picked up
     }
 }
