@@ -97,10 +97,10 @@ public class Controls : MonoBehaviour
                     // Skip to next object if this item is not a interactable item
                     if (possibleItem == null)
                     {
-                        //Debug.Log($"{gameObject.name} || {item.gameObject.name} does not have an Interactable component");
+
                         continue;
                     }
-                    //Debug.Log($"{gameObject.name} || {item.gameObject.name} has an Interactable component");
+
                     // Get current distance between current pickable item and the original hit point
                     currentDistance = Vector3.Distance(hit.point, possibleItem.transform.position);
                     // Set closest item values
