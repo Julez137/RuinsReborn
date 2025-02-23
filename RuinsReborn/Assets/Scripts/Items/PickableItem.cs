@@ -14,11 +14,22 @@ public class PickableItem : Interactable
     [Tooltip("The item's visual icon when shown in inventory.")]
     public Sprite uiSprite;
 
+    public void Init(ItemData newData)
+    {
+        refName = newData.refName;
+        objectName = newData.objectName;
+        interactableText = newData.interactableText;
+        textWidth = newData.textWidth;
+        itemCount = 1;
+        weight = newData.weight;
+        totalWeight = itemCount * weight;
+        uiSprite = newData.uiSprite;
+    }
     public override void OnItemInteracted()
     {
         // Disable gameobject
         Debug.Log($"{gameObject.name} || Picked Up");
-        Notification.instance.PushNotification(this, NotificationPrefab.NotificationType.PickUp);
+        Inventory.Instance.OnItemPickUp(this);
         gameObject.SetActive(false);
         // Tell Inventory that this item is picked up
     }

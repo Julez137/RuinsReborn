@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EquippedItem : MonoBehaviour
 {
+    PickableItem thisAssignedItem;
+    
     /// <summary>
     /// Refreshes this item's encapsulated items based on the filter of the header
     /// </summary>
