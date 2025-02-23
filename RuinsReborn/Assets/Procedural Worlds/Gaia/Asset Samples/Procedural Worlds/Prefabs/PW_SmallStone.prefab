@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1920158762507531025}
   - component: {fileID: 1357369846267340245}
   - component: {fileID: 6362344953995518284}
+  - component: {fileID: 8080786968353642305}
   m_Layer: 10
   m_Name: PW_SmallStone
   m_TagString: PW - Nature
@@ -67,6 +68,25 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 1662968920003909772, guid: 874cf0d250d948647b7462635030ce90, type: 3}
+--- !u!114 &8080786968353642305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3242204568188846338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfdfa927dfd20d64cb000cd006c0c027, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectName: Stone
+  interactableText: pick up stone
+  textWidth: 470
+  itemCount: 1
+  weight: 0.1
+  totalWeight: 0
+  uiSprite: {fileID: 21300000, guid: ec00b63ee97ca04458e468f3c366429d, type: 3}
 --- !u!1 &4195447602797839849
 GameObject:
   m_ObjectHideFlags: 0
