@@ -936,6 +936,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e02475b35b2089042b93ff0c553593a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  encapsulatedItemPrefab: {fileID: 7397036443944706013, guid: 5760077db761bf54a9ae2f066f55a943, type: 3}
+  itemHolder: {fileID: 9063279845599322574}
+  itemList: []
 --- !u!1 &8964900924798247896
 GameObject:
   m_ObjectHideFlags: 0

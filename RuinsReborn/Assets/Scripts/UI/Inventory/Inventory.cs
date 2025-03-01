@@ -46,6 +46,7 @@ public class Inventory : MonoBehaviour
     public void OnItemPickUp(PickableItem item)
     {
         // Store Item in inventory
+        equippedItems[0].AddItem(item._data);
         Notification.instance.PushNotification(item, NotificationPrefab.NotificationType.PickUp);
     }
 

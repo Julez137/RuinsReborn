@@ -20,6 +20,8 @@ public class ItemData
     public string interactableText;
     [Tooltip("The width of the text displayed. This will control the background of the text to highlight it when displayed.")]
     public float textWidth;
+    [Tooltip("The amount of items in this object. This will be multiplied by the base weight to determine total weight")]
+    public float itemCount;
 
     [Header("PickableItem Class")]
     [Tooltip("The amount a single count of this item weighs in Kg's. This will affect the amount of weight the player is carrying.")]

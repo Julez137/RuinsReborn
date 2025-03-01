@@ -14,7 +14,7 @@ public class NotificationPrefab : MonoBehaviour
 
     public void Init(PickableItem item, NotificationType notificationType)
     {
-        icon.sprite = item.uiSprite;
+        icon.sprite = item._data.uiSprite;
         itemText.text = item.objectName;
 
         string character = "";
@@ -29,7 +29,7 @@ public class NotificationPrefab : MonoBehaviour
         else
             newColor = dropColor;
 
-        itemAmount.text = $"{character}{item.itemCount}";
+        itemAmount.text = $"{character}{item._data.itemCount}";
         itemAmount.color = newColor;
 
         displayAnimation.BeginTransitions();

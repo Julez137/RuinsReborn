@@ -18,7 +18,7 @@ public class HotBarSlot : MonoBehaviour
 
     public void SetItem(PickableItem item)
     {
-        icon.sprite = item.uiSprite;
+        icon.sprite = item._data.uiSprite;
     }
 
     public void EnableSelectionBorders(bool isEnabled)
