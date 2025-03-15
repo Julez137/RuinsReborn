@@ -37,7 +37,8 @@ public class WorldBuilderManager : MonoBehaviour
                 if (thisObject.name.Contains(item.refName))
                 {
                     PickableItem newItem = thisObject.gameObject.AddComponent<PickableItem>();
-                    newItem.Init(item);
+
+                    newItem.Init(new ItemData(item));
                 }
                 if (CheckIterations()) yield return new WaitForEndOfFrame();
             }

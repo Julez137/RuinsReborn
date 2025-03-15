@@ -10,23 +10,33 @@ public class EquippedItem : MonoBehaviour
     PickableItem thisAssignedItem;
 
     [SerializeField] private List<ItemPair> itemList = new List<ItemPair>();
-    Dictionary<ItemData, EncapsulatedItem> items = new Dictionary<ItemData, EncapsulatedItem>();
 
     public void AddItem(ItemData newItem)
     {
-        if (newItem == null || items.ContainsKey(newItem))
+        if (newItem == null)
             return;
+
+        foreach (var thisItem in itemList)
+        {
+            ItemData checkedItem = thisItem.item;
+            if (checkedItem.IsEquals(newItem) && checkedItem.isStackable)
+            {
+                // Modify current item with new data
+                checkedItem.AddItem(newItem.itemCount);
+                thisItem.display.Init(checkedItem);
+                return;
+            }
+        }
 
         // Instantiate the encapsulatedItemPrefab in the scene
         EncapsulatedItem newEncapsulation = Instantiate(encapsulatedItemPrefab, itemHolder);
         newEncapsulation.Init(newItem);
 
-        // Add the new encapsulated item to the dictionary
-        items.Add(newItem, newEncapsulation);
-
-        // Sync list for visibility in Inspector
-        itemList.Add(new ItemPair { key = newItem, value = newEncapsulation });
+        // Add new Item to item list
+        itemList.Add(new ItemPair { item = newItem, display = newEncapsulation });
     }
+
+    
     /// <summary>
     /// Refreshes this item's encapsulated items based on the filter of the header
     /// </summary>
@@ -39,6 +49,6 @@ public class EquippedItem : MonoBehaviour
 [Serializable]
 public class ItemPair
 {
-    public ItemData key;
-    public EncapsulatedItem value;
+    public ItemData item;
+    public EncapsulatedItem display;
 }

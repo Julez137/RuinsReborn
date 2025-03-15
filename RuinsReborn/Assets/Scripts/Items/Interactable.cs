@@ -21,6 +21,13 @@ public abstract class Interactable : MonoBehaviour
     }
     public abstract void OnItemInteracted();
 
+    public virtual void Init(ItemData newData)
+    {
+        refName = newData.refName;
+        objectName = newData.objectName;
+        interactableText = newData.interactableText;
+        textWidth = newData.textWidth;
+    }
     public void EnableCollider(bool isEnabled)
     {
         thisCollider.enabled = isEnabled;

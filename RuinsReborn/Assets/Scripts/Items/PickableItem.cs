@@ -7,17 +7,10 @@ public class PickableItem : Interactable
 {
     public ItemData _data;
 
-    public PickableItem(ItemData newData)
+    public override void Init(ItemData newData)
     {
+        base.Init(newData);
         _data = newData;
-    }
-    public void Init(ItemData newData)
-    {
-        _data = newData;
-        refName = newData.refName;
-        objectName = newData.objectName;
-        interactableText = newData.interactableText;
-        textWidth = newData.textWidth;
     }
     public override void OnItemInteracted()
     {

@@ -976,6 +976,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 533ed101d1422a7469f72d31162d74cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  imgItemIcon: {fileID: 6188289361520682036}
+  textItemName: {fileID: 6188289362117528624}
+  textItemCount: {fileID: 4998256278328310795}
+  textItemWeight: {fileID: 6188289362711270592}
 --- !u!222 &6188289362514704964
 CanvasRenderer:
   m_ObjectHideFlags: 0
