@@ -42,6 +42,17 @@ public class ItemData
     public void AddItem(int count)
     {
         itemCount += count;
+        Refresh();
+    }
+
+    public void RemoveItem(int count)
+    {
+        itemCount -= count;
+        Refresh();
+    }
+
+    public void Refresh()
+    {
         if (itemCount <= 0)
         {
             // Delete itself, as the item does not exist anymore
