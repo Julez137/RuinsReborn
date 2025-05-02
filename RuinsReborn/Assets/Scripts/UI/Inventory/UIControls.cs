@@ -11,11 +11,8 @@ public class UIControls : MonoBehaviour
     public GameObject hoveredUIObject; // The UI object currently hovered
 
     private PointerEventData pointerEventData;
-
-    private Controls controls;
     private void Awake()
     {
-        controls = FindObjectOfType<Controls>();
 
         // Fallback: Try to find components automatically
         if (raycaster == null)
@@ -27,8 +24,8 @@ public class UIControls : MonoBehaviour
     private void Update()
     {
         // Don't do anything if a UI menu isn't open
-        if (controls == null) Debug.Log("Controls singleton is null");
-        if (!controls.isMenuOpen) return;
+        if (Controls.instance == null) Debug.Log("Controls singleton is null");
+        if (!Controls.instance.isMenuOpen) return;
 
         // Create PointerEventData based on current mouse position
         pointerEventData = new PointerEventData(eventSystem);

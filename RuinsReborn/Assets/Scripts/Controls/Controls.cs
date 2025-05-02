@@ -6,6 +6,7 @@ using UnityStandardAssets.Characters.FirstPerson;
 public class Controls : MonoBehaviour
 {
     public static Controls instance;
+    public Camera mainCamera;
     [Header("Control Layouts")]
     public KeyCode inventoryKey;
     public KeyCode interactKey;
@@ -15,7 +16,6 @@ public class Controls : MonoBehaviour
     [SerializeField] float raycastDistance;
     [SerializeField] float pickUpRadius;
     [Header("Runtime Info")]
-
     // Used to determine whether a menu is open to make sure the player can't use controls outside of a UI menu.
     public bool isMenuOpen = false;
     [SerializeField] Interactable closestItem;
@@ -26,7 +26,7 @@ public class Controls : MonoBehaviour
 
     private void Awake()
     {
-        if (instance != null) instance = this;
+        if (instance == null) instance = this;
     }
     private void Start()
     {

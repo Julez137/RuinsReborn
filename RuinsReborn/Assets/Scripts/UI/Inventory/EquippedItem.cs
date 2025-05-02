@@ -23,26 +23,37 @@ public class EquippedItem : MonoBehaviour
             {
                 // Modify current item with new data
                 checkedItem.AddItem(newItem.itemCount);
-                thisItem.display.Init(checkedItem);
+                thisItem.display.Init(this, checkedItem);
                 return;
             }
         }
 
         // Instantiate the encapsulatedItemPrefab in the scene
         EncapsulatedItem newEncapsulation = Instantiate(encapsulatedItemPrefab, itemHolder);
-        newEncapsulation.Init(newItem);
+        newEncapsulation.Init(this, newItem);
 
         // Add new Item to item list
         itemList.Add(new ItemPair { item = newItem, display = newEncapsulation });
     }
 
-    
+    public void RemoveItem(EncapsulatedItem removeDisplay)
+    {
+        foreach (var item in itemList)
+        {
+            if (item.display == removeDisplay)
+            {
+                itemList.Remove(item);
+                Destroy(removeDisplay.gameObject);
+                return;
+            }
+        }
+    }
     /// <summary>
     /// Refreshes this item's encapsulated items based on the filter of the header
     /// </summary>
     public void RefreshItems()
     {
-
+        
     }
 }
 

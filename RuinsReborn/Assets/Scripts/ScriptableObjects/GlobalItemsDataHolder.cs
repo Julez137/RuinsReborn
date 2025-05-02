@@ -51,9 +51,15 @@ public class ItemData
         Refresh();
     }
 
+    public void SetItemCount(int amount)
+    {
+        itemCount = amount;
+        Refresh();
+    }
+
     public void Refresh()
     {
-        if (itemCount <= 0)
+        if (itemCount < 0)
         {
             // Delete itself, as the item does not exist anymore
             return;

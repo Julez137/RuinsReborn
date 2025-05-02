@@ -6,15 +6,27 @@ using UnityEngine.UI;
 
 public class EncapsulatedItem : MonoBehaviour
 {
+    EquippedItem equippedItem;
     ItemData thisItem;
 
     [SerializeField] Image imgItemIcon;
     [SerializeField] TextMeshProUGUI textItemName;
     [SerializeField] TextMeshProUGUI textItemCount;
     [SerializeField] TextMeshProUGUI textItemWeight;
-    public void Init(ItemData data)
+    public void Init(EquippedItem equippedItem, ItemData data)
     {
-        if (data.itemCount <= 0) Destroy(gameObject);
+        this.equippedItem = equippedItem;
+
+        UpdateNewData(data);
+    }
+
+    public void UpdateNewData(ItemData data)
+    {
+        if (data.itemCount <= 0)
+        {
+            equippedItem.RemoveItem(this);
+            return;
+        } 
 
         thisItem = data;
         imgItemIcon.sprite = data.uiSprite;
@@ -25,7 +37,8 @@ public class EncapsulatedItem : MonoBehaviour
 
     public void DropItem(int dropCount = 1)
     {
+        WorldBuilderManager.instance.DropItem(new ItemData(thisItem), dropCount);
         thisItem.RemoveItem(dropCount);
-        Init(thisItem);
+        UpdateNewData(thisItem);
     }
 }
