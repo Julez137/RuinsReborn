@@ -13,6 +13,7 @@ public class PickableItem : Interactable
         _data = newData;
         rb = gameObject.AddComponent<Rigidbody>();
         rb.isKinematic = true;
+
         gameObject.layer = 7;
     }
     public override void OnItemInteracted()
@@ -20,6 +21,7 @@ public class PickableItem : Interactable
         // Disable gameobject
         Debug.Log($"{gameObject.name} || Picked Up");
         Inventory.Instance.OnItemPickUp(this);
+        WorldBuilderManager.instance.PlayPickupSound(_data.pickupSound, transform.position);
         gameObject.SetActive(false);
 
     }

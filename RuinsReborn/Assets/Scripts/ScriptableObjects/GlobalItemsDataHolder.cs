@@ -33,6 +33,8 @@ public class ItemData
     public int itemCount;
     [Tooltip("If the item is stackable in the inventory")]
     public bool isStackable;
+    [Tooltip("The sound played when item is picked up")]
+    public AudioClip pickupSound;
 
     public bool IsEquals(ItemData other)
     {
@@ -79,5 +81,6 @@ public class ItemData
         uiSprite = newdata.uiSprite;
         itemCount = newdata.itemCount;
         isStackable = newdata.isStackable;
+        pickupSound = newdata.pickupSound;
     }
 }

@@ -15,10 +15,12 @@ public class WorldBuilderManager : MonoBehaviour
     [Tooltip("OPTOMISATION = The amount of loop iterations per frame will be excecuted. More iterations = less fps.")]
     [SerializeField] int iterationCount = 100;
     int currentIterations;
+    AudioSource pickUpSoundSource;
 
     private void Awake()
     {
         if (instance == null) instance = this;
+        pickUpSoundSource = GetComponentInChildren<AudioSource>();
         if (globalItemsDataHolder == null) globalItemsDataHolder = Resources.Load<GlobalItemsDataHolder>("ScriptableObjects/GlobalItemsDataHolder");
     }
 
@@ -105,6 +107,15 @@ public class WorldBuilderManager : MonoBehaviour
         }
 
         return null;
+    }
+
+    public void PlayPickupSound(AudioClip clip, Vector3 worldPosition)
+    {
+        float randomPitch = Random.Range(0.8f, 1.5f);
+        pickUpSoundSource.pitch = randomPitch;
+
+        pickUpSoundSource.transform.position = worldPosition;
+        pickUpSoundSource.PlayOneShot(clip);
     }
 
     bool CheckIterations()
