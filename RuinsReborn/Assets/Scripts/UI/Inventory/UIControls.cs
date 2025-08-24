@@ -32,8 +32,8 @@ public class UIControls : MonoBehaviour
     private void Update()
     {
         // Don't do anything if a UI menu isn't open
-        if (Controls.instance == null) Debug.Log("Controls singleton is null");
-        if (!Controls.instance.isMenuOpen) return;
+        if (Controls.Instance == null) Debug.Log("Controls singleton is null");
+        if (!Controls.Instance.isMenuOpen) return;
 
         // Create PointerEventData based on current mouse position
         pointerEventData = new PointerEventData(eventSystem);

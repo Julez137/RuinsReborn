@@ -12,5 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3874d79ab6e7acc458b028b0de035c40, type: 3}
   m_Name: KeyBinds
   m_EditorClassIdentifier: 
-  normalKeyBinds: []
-  uiKeyBinds: []
+  normalKeyBinds:
+  - actionName: Inventory
+    key: 9
+  - actionName: Interact
+    key: 101
+  uiKeyBinds:
+  - actionName: Drop Item
+    key: 113

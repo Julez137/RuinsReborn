@@ -57,7 +57,7 @@ public class WorldBuilderManager : MonoBehaviour
     {
         data.SetItemCount(dropAmount);
 
-        Transform camera = Controls.instance.mainCamera.transform;
+        Transform camera = Controls.Instance.mainCamera.transform;
         Vector3 camPos = camera.position;
         Vector3 dropPosition = new Vector3(camPos.x, camPos.y - 0.2f, camPos.z);
         Vector3 dropRotation = camera.eulerAngles;
