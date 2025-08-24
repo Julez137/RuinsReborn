@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -46,13 +47,39 @@ public class UIControls : MonoBehaviour
 
         // Don't continue if there's any UI element hovered
         if (hoveredUIObject == null) return;
+        
+        // Check if the input Keycode exist in binds
+        KeyCode lastKeyPressed = KeyCode.None;
+        if (Input.anyKeyDown) // Only runs if *some* key was pressed
+        {
+            int counter = 0;
+            // Check all keycodes only once when a key is pressed
+            foreach (KeyCode key in Enum.GetValues(typeof(KeyCode)))
+            {
+                counter++;
+                if (Input.GetKeyDown(key))
+                {
+                    lastKeyPressed = key;
+                    Debug.Log("Detected UI key: " + lastKeyPressed);
+                    break; // Stop after finding the first key
+                }
+            }
+        }
+        else
+        {
+            return;
+        }
 
-        // Don't continue if the Drop_Item  keycode is not found
-        if (GetUIBindKey("Drop_Item") == KeyCode.Ampersand) return;
+        if (lastKeyPressed == KeyCode.None) return;
+        bool doesExist = DoesKeybindExist(lastKeyPressed);
+        
+        if(!doesExist) return;
+
         // If the Drop_Item keybind is pressed
-        if (Input.GetKeyDown(GetUIBindKey("Drop_Item")))
+        if (Input.GetKeyDown(lastKeyPressed))
         {
             DropItem(hoveredUIObject);
+            return;
         }
     }
 
@@ -73,6 +100,17 @@ public class UIControls : MonoBehaviour
         }
 
         return KeyCode.Ampersand;
+    }
+
+    public bool DoesKeybindExist(KeyCode keyCode)
+    {
+        foreach (var itembind in uiBinds)
+        {
+            if (itembind.key == keyCode)
+                return true;
+        }
+
+        return false;
     }
 
     [System.Serializable]

@@ -57,9 +57,10 @@ public class WorldBuilderManager : MonoBehaviour
     {
         data.SetItemCount(dropAmount);
 
-        Vector3 camPos = Controls.instance.mainCamera.transform.position;
+        Transform camera = Controls.instance.mainCamera.transform;
+        Vector3 camPos = camera.position;
         Vector3 dropPosition = new Vector3(camPos.x, camPos.y - 0.2f, camPos.z);
-        Vector3 dropRotation = Controls.instance.mainCamera.transform.eulerAngles;
+        Vector3 dropRotation = camera.eulerAngles;
 
         PickableItem item = GetItemFromPool(data.refName);
         if (item == null)

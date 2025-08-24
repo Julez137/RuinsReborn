@@ -84,8 +84,8 @@ public class Controls : MonoBehaviour
         // Check if the menu is open or if the camera is referenced
         if (isMenuOpen || firstPersonController.FovKick.Camera == null) return;
         RaycastHit hit;
-        Vector3 pos = firstPersonController.FovKick.Camera.transform.position;
-        Vector3 dir = firstPersonController.FovKick.Camera.transform.forward * 5;
+        Vector3 pos = mainCamera.transform.position;
+        Vector3 dir = mainCamera.transform.forward * 5;
 
         // Raycast a certain distance to check if it hits anything other than the player
         if (Physics.Raycast(pos, dir, out hit, raycastDistance, ~ignoreLayer))

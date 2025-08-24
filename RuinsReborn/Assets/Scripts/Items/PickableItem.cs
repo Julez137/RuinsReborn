@@ -33,7 +33,7 @@ public class PickableItem : Interactable
         transform.position = position;
         rb.isKinematic = false;
         transform.eulerAngles = dropRotation;
-        rb.velocity = Vector3.forward * 2f;
+        rb.velocity = transform.forward * 2f;
     }
 
     private void FixedUpdate()
