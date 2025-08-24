@@ -7,9 +7,8 @@ public class Controls : MonoBehaviour
 {
     public static Controls instance;
     public Camera mainCamera;
-    [Header("Control Layouts")]
-    public KeyCode inventoryKey;
-    public KeyCode interactKey;
+
+    private KeyBinds keyBinds;
 
     [Header("Raycast Settings")]
     [SerializeField] LayerMask ignoreLayer;
@@ -27,9 +26,12 @@ public class Controls : MonoBehaviour
     private void Awake()
     {
         if (instance == null) instance = this;
+        
     }
     private void Start()
     {
+        keyBinds = Resources.Load<KeyBinds>("ScriptableObjects/KeyBinds");
+        
         firstPersonController = GetComponent<FirstPersonController>();
         if (firstPersonController == null)
         {
@@ -58,7 +60,7 @@ public class Controls : MonoBehaviour
     {
         LookForInteractable();
         // Inventory
-        if (Input.GetKeyDown(inventoryKey))
+        if (Input.GetKeyDown(keyBinds.GetKeyBind(KeyBinds.KeyBindType.Normal, "Inventory")))
         {
             isMenuOpen = Inventory.Instance.InventoryPressed();
             UpdateCursor();
@@ -127,10 +129,10 @@ public class Controls : MonoBehaviour
                 }
                 
                 // Tell the pop-op UI to show instruction to pick up item
-                closestItem.OnItemLook(interactKey);
+                closestItem.OnItemLook(keyBinds.GetKeyBind(KeyBinds.KeyBindType.Normal, "Interact"));
 
                 // Interact with items - for debugging
-                if (Input.GetKeyDown(interactKey))
+                if (Input.GetKeyDown(keyBinds.GetKeyBind(KeyBinds.KeyBindType.Normal, "Interact")))
                 {
                     //Debug.Log($"{gameObject.name} || Interact key pressed");
                     if (isMenuOpen) return;

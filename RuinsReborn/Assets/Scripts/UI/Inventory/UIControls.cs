@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 public class UIControls : MonoBehaviour
 {
-    public UIBinds[] uiBinds;
+    public KeyBinds keyBinds;
     public GraphicRaycaster raycaster;
     public EventSystem eventSystem;
     public GameObject hoveredUIObject; // The UI object currently hovered
@@ -20,6 +20,13 @@ public class UIControls : MonoBehaviour
             raycaster = FindObjectOfType<GraphicRaycaster>();
         if (eventSystem == null)
             eventSystem = EventSystem.current;
+        
+        
+    }
+
+    private void Start()
+    {
+        keyBinds = Resources.Load<KeyBinds>("ScriptableObjects/KeyBinds");
     }
 
     private void Update()
@@ -71,12 +78,12 @@ public class UIControls : MonoBehaviour
         }
 
         if (lastKeyPressed == KeyCode.None) return;
-        bool doesExist = DoesKeybindExist(lastKeyPressed);
+        bool doesExist = keyBinds.DoesKeyBindExist(KeyBinds.KeyBindType.UI, lastKeyPressed);
         
         if(!doesExist) return;
 
         // If the Drop_Item keybind is pressed
-        if (Input.GetKeyDown(lastKeyPressed))
+        if (Input.GetKeyDown(keyBinds.GetKeyBind(KeyBinds.KeyBindType.UI, "Drop Item")))
         {
             DropItem(hoveredUIObject);
             return;
@@ -89,34 +96,5 @@ public class UIControls : MonoBehaviour
         EncapsulatedItem encapsulatedItem = hoveredItem.GetComponentInParent<EncapsulatedItem>();
         if (encapsulatedItem == null) return;
         encapsulatedItem.DropItem();
-    }
-
-    public KeyCode GetUIBindKey(string comparer)
-    {
-        foreach (var itembind in uiBinds)
-        {
-            if (itembind.keyName == comparer) 
-                return itembind.key;
-        }
-
-        return KeyCode.Ampersand;
-    }
-
-    public bool DoesKeybindExist(KeyCode keyCode)
-    {
-        foreach (var itembind in uiBinds)
-        {
-            if (itembind.key == keyCode)
-                return true;
-        }
-
-        return false;
-    }
-
-    [System.Serializable]
-    public class UIBinds
-    {
-        public string keyName;
-        public KeyCode key;
     }
 }
