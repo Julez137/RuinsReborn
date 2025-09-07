@@ -26,7 +26,7 @@ public class WorldBuilderManager : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log($"{gameObject.name} || Assign world objects data");
+        // Debug.Log($"{gameObject.name} || Assign world objects data");
 
         StartCoroutine(InitWorldObjectData());
     }
@@ -37,7 +37,7 @@ public class WorldBuilderManager : MonoBehaviour
         yield return new WaitForEndOfFrame();
         foreach (Collider thisObject in allObjects)
         {
-            Debug.Log($"{gameObject.name} || Check Object {thisObject.name}");
+            // Debug.Log($"{gameObject.name} || Check Object {thisObject.name}");
             foreach (var item in globalItemsDataHolder.items)
             {
                 if (thisObject.name.Contains(item.refName))

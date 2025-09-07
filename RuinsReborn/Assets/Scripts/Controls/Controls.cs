@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -60,12 +61,36 @@ public class Controls : MonoBehaviour
     private void Update()
     {
         LookForInteractable();
-        // Inventory
-        if (Input.GetKeyDown(_keyBinds.GetKeyBind(KeyBinds.KeyBindType.Normal, "Inventory")))
+        if (Input.anyKeyDown) // Check if any key is pressed
         {
-            isMenuOpen = Inventory.Instance.InventoryPressed();
-            UpdateCursor();
+            // Inventory
+            if (Input.GetKeyDown(_keyBinds.GetKeyBind(KeyBinds.KeyBindType.Normal, "Inventory")))
+            {
+                isMenuOpen = Inventory.Instance.InventoryPressed();
+                UpdateCursor();
+                return;
+            }
+            
+            // Hotbar
+            // Store the currently pressed button
+            KeyCode lastKeyPressed = KeyCode.None;
+            // Check all possible keycodes and store keycode if valid
+            foreach (KeyCode key in Enum.GetValues(typeof(KeyCode)))
+            {
+                if (Input.GetKeyDown(key))
+                {
+                    lastKeyPressed = key;
+                    break; // Stop after finding the key
+                }
+            }
+            // Check to see if the pressed key does exist in the hotbar binds
+            if (_keyBinds.DoesKeyBindExist(KeyBinds.KeyBindType.Hotbar, lastKeyPressed))
+            {
+                // Select the associated hotbar slot
+                HotBar.Instance.SelectSlot(_keyBinds.GetKeycodeIndexInList(KeyBinds.KeyBindType.Hotbar, lastKeyPressed));
+            }
         }
+        
     }
 
     void UpdateCursor()

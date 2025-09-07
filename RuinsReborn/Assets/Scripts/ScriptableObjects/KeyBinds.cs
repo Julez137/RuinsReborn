@@ -8,6 +8,7 @@ public class KeyBinds : ScriptableObject
 {
     public KeyBind[] normalKeyBinds;
     public KeyBind[] uiKeyBinds;
+    public KeyBind[] hotbarBinds;
 
 
     public KeyCode GetKeyBind(KeyBindType keyBindType, string keyAction)
@@ -20,6 +21,9 @@ public class KeyBinds : ScriptableObject
             case KeyBindType.UI :
                 return SearchKeyCodeInList(uiKeyBinds, keyAction);
                 break;
+            case KeyBindType.Hotbar :
+                return SearchKeyCodeInList(hotbarBinds, keyAction);
+                break;
             default :
                 return KeyCode.None;
                 break;
@@ -27,8 +31,6 @@ public class KeyBinds : ScriptableObject
 
         return KeyCode.None;
     }
-    
-    
     
     public bool DoesKeyBindExist(KeyBindType keyBindType, KeyCode keyComparer)
     {
@@ -41,12 +43,36 @@ public class KeyBinds : ScriptableObject
             case KeyBindType.UI :
                 foundKey =  SearchKeyCodeInList(uiKeyBinds, keyComparer);
                 break;
+            case KeyBindType.Hotbar :
+                foundKey = SearchKeyCodeInList(hotbarBinds, keyComparer);
+                break;
             default :
                 return false;
                 break;
         }
 
         return (foundKey != KeyCode.None);
+    }
+    
+    public int GetKeycodeIndexInList(KeyBindType keyBindType, KeyCode keyComparer)
+    {
+        switch (keyBindType)
+        {
+            case KeyBindType.Normal :
+                return GetKeycodeIndexInList(normalKeyBinds, keyComparer);
+                break;
+            case KeyBindType.UI :
+                return GetKeycodeIndexInList(uiKeyBinds, keyComparer);
+                break;
+            case KeyBindType.Hotbar :
+                return GetKeycodeIndexInList(hotbarBinds, keyComparer);
+                break;
+            default :
+                return -1;
+                break;
+        }
+
+        return -1;
     }
 
     KeyCode SearchKeyCodeInList(KeyBind[] keyBinds, string keyAction)
@@ -71,6 +97,17 @@ public class KeyBinds : ScriptableObject
         return KeyCode.None;
     }
 
+    int GetKeycodeIndexInList(KeyBind[] keyBinds, KeyCode keyComparer)
+    {
+        for (int i = 0; i < keyBinds.Length; i++)
+        {
+            if (keyBinds[i].key == keyComparer) 
+                return i;
+        }
+
+        return -1;
+    }
+
     
     
     [System.Serializable]
@@ -83,6 +120,7 @@ public class KeyBinds : ScriptableObject
     public enum KeyBindType
     {
         Normal,
-        UI
+        UI,
+        Hotbar
     }
 }

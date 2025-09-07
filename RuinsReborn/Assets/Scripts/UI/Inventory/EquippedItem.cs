@@ -7,9 +7,11 @@ public class EquippedItem : MonoBehaviour
 {
     [SerializeField] EncapsulatedItem encapsulatedItemPrefab;
     [SerializeField] Transform itemHolder;
-    PickableItem thisAssignedItem;
+    [SerializeField] ItemData data;
 
     [SerializeField] private List<ItemPair> itemList = new List<ItemPair>();
+
+    public ItemData GetItemData() { return data; }
 
     public void AddItem(ItemData newItem)
     {

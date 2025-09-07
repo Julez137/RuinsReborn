@@ -90,8 +90,7 @@ public abstract class Interactable : MonoBehaviour
                  result.Add(mat);
             }
         }
-
-        Debug.Log($"Result material count : {result.Count}");
+        
         return result.ToArray();
     }
 }

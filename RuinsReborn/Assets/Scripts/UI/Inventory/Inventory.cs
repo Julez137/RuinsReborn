@@ -1,3 +1,4 @@
+using System;
 using Lean.Gui;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,9 +17,10 @@ public class Inventory : MonoBehaviour
     [SerializeField] Button filterButton;
     [SerializeField] FilterWindow filterWindow;
     [SerializeField] Transform inventoryContent;
-
     List<EquippedItem> equippedItems = new List<EquippedItem>();
-    // Start is called before the first frame update
+    
+    public EquippedItem[] GetEquippedItems() { return equippedItems.ToArray(); }
+
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -26,7 +28,12 @@ public class Inventory : MonoBehaviour
         filterButton.onClick.AddListener(OnFilterButtonClicked);
         equippedItems = inventoryContent.GetComponentsInChildren<EquippedItem>().ToList();
     }
-    
+
+    private void Start()
+    {
+        HotBar.Instance.Refresh();
+    }
+
     public bool InventoryPressed()
     {
         if (window.On)

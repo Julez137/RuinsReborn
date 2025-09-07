@@ -23,3 +23,8 @@ MonoBehaviour:
     itemCount: 1
     isStackable: 1
     pickupSound: {fileID: 8300000, guid: 80bffde581f4163479efbe8bf7e6588e, type: 3}
+    canInteract: 1
+    isEquippable: 0
+    maxCarryWeight: 0
+    equipmentSlot: 0
+    hotbarSlotsCount: 0

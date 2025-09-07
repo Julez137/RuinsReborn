@@ -21,7 +21,7 @@ public class ItemData
     public string interactableText;
     [Tooltip("The width of the text displayed. This will control the background of the text to highlight it when displayed.")]
     public float textWidth;
-    
+
     [Header("PickableItem Class")]
     [Tooltip("The amount a single count of this item weighs in Kg's. This will affect the amount of weight the player is carrying.")]
     public float weight;
@@ -35,8 +35,21 @@ public class ItemData
     public bool isStackable;
     [Tooltip("The sound played when item is picked up")]
     public AudioClip pickupSound;
+    [Tooltip("Can this item be interacted with from the inventory?. If true, this item can be dragged around the inventory and dropped")]
+    public bool canInteract = true;
+    
+    [Header("Equippable Item")] 
+    [Tooltip("Is this item equippable in the player's equipment slots?")] 
+    public bool isEquippable = false;
+    [Tooltip("How much weight this item can carry")]
+    public float maxCarryWeight;
+    [Tooltip("What equipment slot can this item be assigned to?")]
+    public EquipSlot equipmentSlot = EquipSlot.Hand;
+    [Tooltip("How many hotbar slots does this item open when equipped?")]
+    public int hotbarSlotsCount = 0;
+    
 
-    public bool IsEquals(ItemData other)
+public bool IsEquals(ItemData other)
     {
         return objectName == other.objectName;
     }
@@ -83,4 +96,15 @@ public class ItemData
         isStackable = newdata.isStackable;
         pickupSound = newdata.pickupSound;
     }
+}
+
+public enum EquipSlot
+{
+    Hand,
+    Head,
+    Back,
+    UpperTorso,
+    LowerTorso,
+    Arms,
+    Legs,
 }

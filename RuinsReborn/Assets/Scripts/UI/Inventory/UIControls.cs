@@ -59,11 +59,9 @@ public class UIControls : MonoBehaviour
         KeyCode lastKeyPressed = KeyCode.None;
         if (Input.anyKeyDown) // Only runs if *some* key was pressed
         {
-            int counter = 0;
             // Check all keycodes only once when a key is pressed
             foreach (KeyCode key in Enum.GetValues(typeof(KeyCode)))
             {
-                counter++;
                 if (Input.GetKeyDown(key))
                 {
                     lastKeyPressed = key;
