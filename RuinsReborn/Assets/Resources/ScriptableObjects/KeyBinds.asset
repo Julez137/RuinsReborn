@@ -20,6 +20,8 @@ MonoBehaviour:
   uiKeyBinds:
   - actionName: Drop Item
     key: 113
+  - actionName: Select Item
+    key: 323
   hotbarBinds:
   - actionName: Hotbar Select 1
     key: 49

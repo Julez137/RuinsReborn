@@ -2,14 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class EncapsulatedItem : MonoBehaviour
+public class EncapsulatedItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     EquippedItem equippedItem;
     ItemData thisItem;
 
     [SerializeField] Image imgItemIcon;
+    [SerializeField] Color normalColor;
+    [SerializeField] Color hoverColor;
     [SerializeField] TextMeshProUGUI textItemName;
     [SerializeField] TextMeshProUGUI textItemCount;
     [SerializeField] TextMeshProUGUI textItemWeight;
@@ -40,5 +43,20 @@ public class EncapsulatedItem : MonoBehaviour
         WorldBuilderManager.instance.DropItem(new ItemData(thisItem), dropCount);
         thisItem.RemoveItem(dropCount);
         UpdateNewData(thisItem);
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        GetComponent<Image>().color = hoverColor;
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        GetComponent<Image>().color = normalColor;
+    }
+
+    public ItemData Data()
+    {
+        return thisItem;
     }
 }

@@ -6,10 +6,11 @@ using System.Collections.Generic;
 
 public class UIControls : MonoBehaviour
 {
-    public KeyBinds keyBinds;
-    public GraphicRaycaster raycaster;
-    public EventSystem eventSystem;
-    public GameObject hoveredUIObject; // The UI object currently hovered
+    private KeyBinds keyBinds;
+    private GraphicRaycaster raycaster;
+    private EventSystem eventSystem;
+    private GameObject hoveredUIObject; // The UI object currently hovered
+    private GameObject heldUIObject; // The UI object that is being held
 
     private PointerEventData pointerEventData;
     private void Awake()
@@ -20,8 +21,6 @@ public class UIControls : MonoBehaviour
             raycaster = FindObjectOfType<GraphicRaycaster>();
         if (eventSystem == null)
             eventSystem = EventSystem.current;
-        
-        
     }
 
     private void Start()
@@ -38,6 +37,10 @@ public class UIControls : MonoBehaviour
         // Create PointerEventData based on current mouse position
         pointerEventData = new PointerEventData(eventSystem);
         pointerEventData.position = Input.mousePosition;
+        
+        // Move the HeldItem to were the mouse is pointing
+        if (heldUIObject != null)
+            HeldItem.Instance.SetPosition(pointerEventData.position);
 
         // Raycast to find UI elements under the pointer
         List<RaycastResult> results = new List<RaycastResult>();
@@ -65,14 +68,20 @@ public class UIControls : MonoBehaviour
                 if (Input.GetKeyDown(key))
                 {
                     lastKeyPressed = key;
-                    Debug.Log("Detected UI key: " + lastKeyPressed);
                     break; // Stop after finding the first key
                 }
             }
         }
         else
         {
-            return;
+            foreach (KeyCode key in Enum.GetValues(typeof(KeyCode)))
+            {
+                if (Input.GetKeyUp(key))
+                {
+                    lastKeyPressed = key;
+                    break; // Stop after finding the first key
+                }
+            }
         }
 
         if (lastKeyPressed == KeyCode.None) return;
@@ -86,13 +95,39 @@ public class UIControls : MonoBehaviour
             DropItem(hoveredUIObject);
             return;
         }
+
+        // Holding an item in inventory
+        if (Input.GetKeyDown(keyBinds.GetKeyBind(KeyBinds.KeyBindType.UI, "Select Item")))
+        {
+            heldUIObject = hoveredUIObject;
+            HoldItem(heldUIObject);
+        }
+        
+        // Leaving item in inventory
+        if (Input.GetKeyUp(keyBinds.GetKeyBind(KeyBinds.KeyBindType.UI, "Select Item")))
+        {
+            if (heldUIObject == null) return;
+            LeaveItem();
+            heldUIObject = null;
+        }
     }
 
     void DropItem(GameObject hoveredItem)
     {
-
         EncapsulatedItem encapsulatedItem = hoveredItem.GetComponentInParent<EncapsulatedItem>();
         if (encapsulatedItem == null) return;
         encapsulatedItem.DropItem();
+    }
+
+    void HoldItem(GameObject hoveredItem)
+    {
+        EncapsulatedItem encapsulatedItem = hoveredItem.GetComponentInParent<EncapsulatedItem>();
+        if (encapsulatedItem == null) return;
+        HeldItem.Instance.HoldItem(encapsulatedItem.Data());
+    }
+
+    void LeaveItem()
+    {
+        HeldItem.Instance.LeaveItem();
     }
 }
