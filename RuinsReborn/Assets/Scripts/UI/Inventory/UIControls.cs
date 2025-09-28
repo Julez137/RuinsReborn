@@ -10,9 +10,10 @@ public class UIControls : MonoBehaviour
     private GraphicRaycaster raycaster;
     private EventSystem eventSystem;
     private GameObject hoveredUIObject; // The UI object currently hovered
-    private GameObject heldUIObject; // The UI object that is being held
 
     private PointerEventData pointerEventData;
+    
+    KeyCode lastKeyPressed = KeyCode.None;
     private void Awake()
     {
 
@@ -31,18 +32,58 @@ public class UIControls : MonoBehaviour
     private void Update()
     {
         // Don't do anything if a UI menu isn't open
-        if (Controls.Instance == null) Debug.Log("Controls singleton is null");
-        if (!Controls.Instance.isMenuOpen) return;
+        if (!IsMenuOpen()) return;
 
         // Create PointerEventData based on current mouse position
-        pointerEventData = new PointerEventData(eventSystem);
-        pointerEventData.position = Input.mousePosition;
+        AssignPointerData();
         
         // Move the HeldItem to were the mouse is pointing
-        if (heldUIObject != null)
-            HeldItem.Instance.SetPosition(pointerEventData.position);
+        SetHeldItemPosition();
 
         // Raycast to find UI elements under the pointer
+        GetHoveredObject();
+
+        // Don't continue if there's no UI element hovered
+        if (hoveredUIObject == null) return;
+
+        // Check if the input Keycode exist in Unity Enum Directory
+        GetInput();
+
+        // If the key that was pressed or lifted exists in Unity Enum Directory, do continue.
+        if (lastKeyPressed == KeyCode.None) return;
+        
+        // Check to see if the comparer key exists in assigned UI Keybinds list.
+        bool doesExist = keyBinds.DoesKeyBindExist(KeyBinds.KeyBindType.UI, lastKeyPressed);
+        
+        // Continue if that comparer key does exist in the UI Keybinds list
+        if(!doesExist) return;
+
+        // Go through all possible keybind actions
+        CheckInputs();
+    }
+    
+    #region Update Methods
+
+    bool IsMenuOpen()
+    {
+        if (Controls.Instance == null) Debug.Log("Controls singleton is null");
+        return Controls.Instance.isMenuOpen;
+    }
+
+    void AssignPointerData()
+    {
+        pointerEventData = new PointerEventData(eventSystem);
+        pointerEventData.position = Input.mousePosition;
+    }
+
+    void SetHeldItemPosition()
+    {
+        if (HeldItem.Instance.IsHoldingItem())
+            HeldItem.Instance.SetPosition(pointerEventData.position);
+    }
+
+    void GetHoveredObject()
+    {
         List<RaycastResult> results = new List<RaycastResult>();
         raycaster.Raycast(pointerEventData, results);
 
@@ -54,12 +95,11 @@ public class UIControls : MonoBehaviour
         {
             hoveredUIObject = null;
         }
+    }
 
-        // Don't continue if there's any UI element hovered
-        if (hoveredUIObject == null) return;
-        
-        // Check if the input Keycode exist in binds
-        KeyCode lastKeyPressed = KeyCode.None;
+    void GetInput()
+    {
+        lastKeyPressed = KeyCode.None;
         if (Input.anyKeyDown) // Only runs if *some* key was pressed
         {
             // Check all keycodes only once when a key is pressed
@@ -83,12 +123,10 @@ public class UIControls : MonoBehaviour
                 }
             }
         }
+    }
 
-        if (lastKeyPressed == KeyCode.None) return;
-        bool doesExist = keyBinds.DoesKeyBindExist(KeyBinds.KeyBindType.UI, lastKeyPressed);
-        
-        if(!doesExist) return;
-
+    void CheckInputs()
+    {
         // If the Drop_Item keybind is pressed
         if (Input.GetKeyDown(keyBinds.GetKeyBind(KeyBinds.KeyBindType.UI, "Drop Item")))
         {
@@ -99,24 +137,26 @@ public class UIControls : MonoBehaviour
         // Holding an item in inventory
         if (Input.GetKeyDown(keyBinds.GetKeyBind(KeyBinds.KeyBindType.UI, "Select Item")))
         {
-            heldUIObject = hoveredUIObject;
-            HoldItem(heldUIObject);
+            HoldItem(hoveredUIObject);
         }
         
         // Leaving item in inventory
         if (Input.GetKeyUp(keyBinds.GetKeyBind(KeyBinds.KeyBindType.UI, "Select Item")))
         {
-            if (heldUIObject == null) return;
             LeaveItem();
-            heldUIObject = null;
         }
     }
+    
+    #endregion
 
+    #region UI Interaction
     void DropItem(GameObject hoveredItem)
     {
         EncapsulatedItem encapsulatedItem = hoveredItem.GetComponentInParent<EncapsulatedItem>();
         if (encapsulatedItem == null) return;
         encapsulatedItem.DropItem();
+        
+        HotBar.Instance.RefreshItems();
     }
 
     void HoldItem(GameObject hoveredItem)
@@ -128,6 +168,14 @@ public class UIControls : MonoBehaviour
 
     void LeaveItem()
     {
+        ItemSlot itemSlot = hoveredUIObject.GetComponentInParent<ItemSlot>();
+        if (itemSlot != null)
+        {
+            itemSlot.OnItemAssigned(HeldItem.Instance.Data());
+        }
+        
         HeldItem.Instance.LeaveItem();
     }
+    
+    #endregion
 }

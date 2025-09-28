@@ -41,4 +41,14 @@ public class HeldItem : MonoBehaviour
         // Set the UI element's position to the mouse position
         rectTransform.position = position;
     }
+
+    public bool IsHoldingItem()
+    {
+        return heldItem != null;
+    }
+
+    public ItemData Data()
+    {
+        return heldItem;
+    }
 }

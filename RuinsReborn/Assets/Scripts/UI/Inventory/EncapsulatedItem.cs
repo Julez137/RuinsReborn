@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Utilities;
 
 public class EncapsulatedItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
@@ -11,8 +12,6 @@ public class EncapsulatedItem : MonoBehaviour, IPointerEnterHandler, IPointerExi
     ItemData thisItem;
 
     [SerializeField] Image imgItemIcon;
-    [SerializeField] Color normalColor;
-    [SerializeField] Color hoverColor;
     [SerializeField] TextMeshProUGUI textItemName;
     [SerializeField] TextMeshProUGUI textItemCount;
     [SerializeField] TextMeshProUGUI textItemWeight;
@@ -47,12 +46,12 @@ public class EncapsulatedItem : MonoBehaviour, IPointerEnterHandler, IPointerExi
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        GetComponent<Image>().color = hoverColor;
+        GetComponent<Image>().color = ColorHandling.HoverColor;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        GetComponent<Image>().color = normalColor;
+        GetComponent<Image>().color = ColorHandling.NormalColor;
     }
 
     public ItemData Data()
