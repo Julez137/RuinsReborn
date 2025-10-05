@@ -17,6 +17,8 @@ MonoBehaviour:
     key: 9
   - actionName: Interact
     key: 101
+  - actionName: Drop Item
+    key: 113
   uiKeyBinds:
   - actionName: Drop Item
     key: 113

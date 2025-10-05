@@ -21,6 +21,7 @@ public class Inventory : MonoBehaviour
     
     public EquippedItem[] GetEquippedItems() { return equippedItems.ToArray(); }
 
+    #region Init
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -31,9 +32,13 @@ public class Inventory : MonoBehaviour
 
     private void Start()
     {
-        HotBar.Instance.Refresh();
+        HotBar.Instance.RefreshSlots();
     }
 
+    #endregion
+    
+    #region Public methods
+    
     public bool InventoryPressed()
     {
         if (window.On)
@@ -57,8 +62,21 @@ public class Inventory : MonoBehaviour
         Notification.instance.PushNotification(item, NotificationPrefab.NotificationType.PickUp);
     }
 
+    public void OnItemDropped(EncapsulatedItem encapsulatedItem, int dropCount)
+    {
+        encapsulatedItem.DropItem();
+        HotBar.Instance.RefreshItems();
+    }
+
+    #endregion
+
+    #region Helper Methods
+
     void OnFilterButtonClicked()
     {
         filterWindow.EnableWindow();
     }
+
+    #endregion
+    
 }

@@ -63,15 +63,6 @@ public class Controls : MonoBehaviour
         LookForInteractable();
         if (Input.anyKeyDown) // Check if any key is pressed
         {
-            // Inventory
-            if (Input.GetKeyDown(_keyBinds.GetKeyBind(KeyBinds.KeyBindType.Normal, "Inventory")))
-            {
-                isMenuOpen = Inventory.Instance.InventoryPressed();
-                UpdateCursor();
-                return;
-            }
-            
-            // Hotbar
             // Store the currently pressed button
             KeyCode lastKeyPressed = KeyCode.None;
             // Check all possible keycodes and store keycode if valid
@@ -83,11 +74,31 @@ public class Controls : MonoBehaviour
                     break; // Stop after finding the key
                 }
             }
-            // Check to see if the pressed key does exist in the hotbar binds
+            
+            if (lastKeyPressed == KeyCode.None) return;
+            
+            // Inventory
+            if (Input.GetKeyDown(_keyBinds.GetKeyBind(KeyBinds.KeyBindType.Normal, "Inventory")))
+            {
+                isMenuOpen = Inventory.Instance.InventoryPressed();
+                UpdateCursor();
+                return;
+            }
+
+            // Hotbar
             if (_keyBinds.DoesKeyBindExist(KeyBinds.KeyBindType.Hotbar, lastKeyPressed))
             {
                 // Select the associated hotbar slot
                 HotBar.Instance.SelectSlot(_keyBinds.GetKeycodeIndexInList(KeyBinds.KeyBindType.Hotbar, lastKeyPressed));
+                return;
+            }
+            
+            // Drop Item
+            if (Input.GetKeyDown(_keyBinds.GetKeyBind(KeyBinds.KeyBindType.Normal, "Drop Item")))
+            {
+                if (!isMenuOpen) 
+                    HotBar.Instance.DropSelectedItem();
+                return;
             }
         }
         

@@ -8,6 +8,7 @@ public class HotBar : MonoBehaviour
 {
     public static HotBar Instance;
     [SerializeField] private HotBarSlot[] slots;
+    private int _selectedSlot = -1;
 
     private void Awake()
     {
@@ -20,7 +21,7 @@ public class HotBar : MonoBehaviour
         }
     }
 
-    public void Refresh()
+    public void RefreshSlots()
     {
         Debug.Log($"Refresh Hotbar");
         
@@ -58,23 +59,44 @@ public class HotBar : MonoBehaviour
         foreach (var slot in slots)
         {
             if (slot.GetState() == HotBarState.Locked) continue;
-            if (slot.data == null) continue;
+            if (slot.assignedItem == null) continue;
+            if (slot.assignedItem.Data() == null) continue;
             
-            Debug.Log($"[{gameObject.name}] {slot.gameObject.name} item data count : {slot.data.itemCount}");
-            if (slot.data.itemCount <= 0) 
+            Debug.Log($"[{gameObject.name}] {slot.gameObject.name} item data count : {slot.assignedItem.Data().itemCount}");
+            if (slot.assignedItem.Data().itemCount <= 0)
+            {
+                slot.assignedItem = null;
                 slot.SetHotbarState(HotBarState.Empty);
+            }
+                
         }
     }
 
     public void SelectSlot(int index)
     {
+        bool hasFoundSlot = false;
         for (int i = 0; i < slots.Length; i++)
         {
             HotBarSlot currentSlot = slots[i];
             
             if (currentSlot.GetState() == HotBarState.Locked) continue;
+
+            bool isSelected = index == i;
             
-            currentSlot.IsSelected(index == i);
+            if (isSelected)
+                _selectedSlot = i;
+
+            hasFoundSlot = currentSlot.IsSelected(isSelected);
+            
         }
+
+        if (!hasFoundSlot) _selectedSlot = -1;
+    }
+
+    public void DropSelectedItem()
+    {
+        if (_selectedSlot < 0) return;
+        if (slots[_selectedSlot].assignedItem == null) return;
+            Inventory.Instance.OnItemDropped(slots[_selectedSlot].assignedItem, 1);
     }
 }

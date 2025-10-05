@@ -5,34 +5,32 @@ using UnityEngine.EventSystems;
 
 public abstract class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    public ItemData data;
+    public EncapsulatedItem assignedItem;
+
+    /// <summary>
+    /// This updates any visuals needed for the child class when its hovered
+    /// </summary>
+    /// 
     public abstract void OnItemHover();
+    
+    /// <summary>
+    /// This updates any visuals needed for the child class when its not hovered
+    /// </summary>
     public abstract void OnItemLeft();
-    public abstract void OnItemAssigned(ItemData data);
+    
+    /// <summary>
+    /// Assigns the item to the child class
+    /// </summary>
+    /// <param name="item">Encapsulated item that will be assigned</param>
+    public abstract void OnItemAssigned(EncapsulatedItem item);
     
     public void OnPointerEnter(PointerEventData eventData)
     {
-        bool isHoldingItem = HeldItem.Instance.IsHoldingItem();
-        ItemData itemData = HeldItem.Instance.Data();
-
-        // if (isHoldingItem)
-        //     Debug.Log($"[{gameObject.name}] Pointer Enter. Is holding item : {itemData.objectName}");
-        // else
-        //     Debug.Log($"[{gameObject.name}] Pointer Enter. Not holding an Item");
-        
         OnItemHover();
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        bool isHoldingItem = HeldItem.Instance.IsHoldingItem();
-        ItemData itemData = HeldItem.Instance.Data();
-
-        // if (isHoldingItem)
-        //     Debug.Log($"[{gameObject.name}] Pointer Exit. Is holding item : {itemData.objectName}");
-        // else
-        //     Debug.Log($"[{gameObject.name}] Pointer Exit. Not holding an Item");
-        
         OnItemLeft();
     }
 }

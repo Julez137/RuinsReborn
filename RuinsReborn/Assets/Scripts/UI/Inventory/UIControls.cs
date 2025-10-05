@@ -154,7 +154,8 @@ public class UIControls : MonoBehaviour
     {
         EncapsulatedItem encapsulatedItem = hoveredItem.GetComponentInParent<EncapsulatedItem>();
         if (encapsulatedItem == null) return;
-        encapsulatedItem.DropItem();
+        
+        Inventory.Instance.OnItemDropped(encapsulatedItem, 1);
         
         HotBar.Instance.RefreshItems();
     }
@@ -163,7 +164,7 @@ public class UIControls : MonoBehaviour
     {
         EncapsulatedItem encapsulatedItem = hoveredItem.GetComponentInParent<EncapsulatedItem>();
         if (encapsulatedItem == null) return;
-        HeldItem.Instance.HoldItem(encapsulatedItem.Data());
+        HeldItem.Instance.HoldItem(encapsulatedItem);
     }
 
     void LeaveItem()
@@ -171,7 +172,7 @@ public class UIControls : MonoBehaviour
         ItemSlot itemSlot = hoveredUIObject.GetComponentInParent<ItemSlot>();
         if (itemSlot != null)
         {
-            itemSlot.OnItemAssigned(HeldItem.Instance.Data());
+            itemSlot.OnItemAssigned(HeldItem.Instance.Item());
         }
         
         HeldItem.Instance.LeaveItem();

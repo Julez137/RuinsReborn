@@ -31,10 +31,10 @@ public class HotBarSlot : ItemSlot
         SetHotbarState(hotBarState);
     }
 
-    void SetItem(ItemData newData)
+    void SetItem(EncapsulatedItem item)
     {
-        data = newData;
-        if (data == null)
+        assignedItem = item;
+        if (assignedItem == null)
         {
             Debug.Log($"[{gameObject.name}] Item null. Set Hotbar state to Empty");
             SetHotbarState(HotBarState.Empty);
@@ -42,24 +42,25 @@ public class HotBarSlot : ItemSlot
         }
         else
         {
-            Debug.Log($"[{gameObject.name}] Item assigned : {data.objectName}. Set Hotbar state to Assigned");
+            Debug.Log($"[{gameObject.name}] Item assigned : {item.Data().objectName}. Set Hotbar state to Assigned");
             SetHotbarState(HotBarState.Assigned);
-            icon.sprite = data.uiSprite;
+            icon.sprite = item.Data().uiSprite;
         }
     }
 
-    public void IsSelected(bool isSelected)
+    public bool IsSelected(bool isSelected)
     {
         // If the hotbar slot is selected already, disable it to mimic sheathing an item
         if (this.isSelected && isSelected)
         {
             this.isSelected = false;
             selectionBorders.SetActive(false);
-            return;
+            return false;
         }
         
         this.isSelected = isSelected;
         selectionBorders.SetActive(isSelected);
+        return true;
     }
 
     public void SetHotbarState(HotBarState state)
@@ -87,11 +88,11 @@ public class HotBarSlot : ItemSlot
         _thisImage.color = _defaultColor;
     }
 
-    public override void OnItemAssigned(ItemData data)
+    public override void OnItemAssigned(EncapsulatedItem item)
     {
         if (!IsValid()) return;
 
-        SetItem(data);
+        SetItem(item);
     }
 
     bool IsValid()

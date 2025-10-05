@@ -8,7 +8,7 @@ public class HeldItem : MonoBehaviour
 {
     public static HeldItem Instance;
     [SerializeField] private Image imageItem;
-    private ItemData heldItem;
+    private EncapsulatedItem heldItem;
     
     private RectTransform rectTransform;
 
@@ -20,10 +20,10 @@ public class HeldItem : MonoBehaviour
         rectTransform = GetComponent<RectTransform>();
     }
 
-    public void HoldItem(ItemData itemData)
+    public void HoldItem(EncapsulatedItem item)
     {
-        heldItem = itemData;
-        imageItem.sprite = heldItem.uiSprite;
+        heldItem = item;
+        imageItem.sprite = heldItem.Data().uiSprite;
         imageItem.gameObject.SetActive(true);
         Cursor.visible = false;
     }
@@ -47,7 +47,7 @@ public class HeldItem : MonoBehaviour
         return heldItem != null;
     }
 
-    public ItemData Data()
+    public EncapsulatedItem Item()
     {
         return heldItem;
     }
