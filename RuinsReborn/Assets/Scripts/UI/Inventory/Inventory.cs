@@ -64,7 +64,12 @@ public class Inventory : MonoBehaviour
 
     public void OnItemDropped(EncapsulatedItem encapsulatedItem, int dropCount)
     {
-        encapsulatedItem.DropItem();
+        int itemCount = encapsulatedItem.Data().itemCount;
+        if (dropCount >= itemCount)
+            encapsulatedItem.DropItem(itemCount);
+        else
+            encapsulatedItem.DropItem(dropCount);
+        
         HotBar.Instance.RefreshItems();
     }
 

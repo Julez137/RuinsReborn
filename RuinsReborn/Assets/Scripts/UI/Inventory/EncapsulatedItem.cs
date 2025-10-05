@@ -37,7 +37,7 @@ public class EncapsulatedItem : MonoBehaviour, IPointerEnterHandler, IPointerExi
         textItemWeight.text = $"{data.weight} ({data.totalWeight})";
     }
 
-    public void DropItem(int dropCount = 1)
+    public void DropItem(int dropCount)
     {
         WorldBuilderManager.instance.DropItem(new ItemData(thisItem), dropCount);
         thisItem.RemoveItem(dropCount);

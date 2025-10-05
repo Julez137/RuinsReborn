@@ -191,7 +191,7 @@ public class UIControls : MonoBehaviour
     {
         EncapsulatedItem encapsulatedItem = hoveredItem.GetComponentInParent<EncapsulatedItem>();
         if (encapsulatedItem == null) return;
-        ItemOptions.Instance.Open(encapsulatedItem);
+        ItemOptions.Instance.Open(encapsulatedItem, pointerEventData.position);
     }
     
     #endregion
