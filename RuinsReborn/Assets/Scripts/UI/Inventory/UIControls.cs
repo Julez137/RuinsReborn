@@ -138,12 +138,21 @@ public class UIControls : MonoBehaviour
         if (Input.GetKeyDown(keyBinds.GetKeyBind(KeyBinds.KeyBindType.UI, "Select Item")))
         {
             HoldItem(hoveredUIObject);
+            return;
         }
         
         // Leaving item in inventory
         if (Input.GetKeyUp(keyBinds.GetKeyBind(KeyBinds.KeyBindType.UI, "Select Item")))
         {
             LeaveItem();
+            return;
+        }
+        
+        // Item Options
+        if (Input.GetKeyDown(keyBinds.GetKeyBind(KeyBinds.KeyBindType.UI, "Item Options")))
+        {
+            OpenItemOptions(hoveredUIObject);
+            return;
         }
     }
     
@@ -176,6 +185,13 @@ public class UIControls : MonoBehaviour
         }
         
         HeldItem.Instance.LeaveItem();
+    }
+
+    void OpenItemOptions(GameObject hoveredItem)
+    {
+        EncapsulatedItem encapsulatedItem = hoveredItem.GetComponentInParent<EncapsulatedItem>();
+        if (encapsulatedItem == null) return;
+        ItemOptions.Instance.Open(encapsulatedItem);
     }
     
     #endregion

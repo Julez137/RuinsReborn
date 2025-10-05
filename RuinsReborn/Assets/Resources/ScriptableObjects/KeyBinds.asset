@@ -24,6 +24,8 @@ MonoBehaviour:
     key: 113
   - actionName: Select Item
     key: 323
+  - actionName: Item Options
+    key: 324
   hotbarBinds:
   - actionName: Hotbar Select 1
     key: 49

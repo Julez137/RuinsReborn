@@ -28,7 +28,7 @@ public class Controls : MonoBehaviour
     private void Awake()
     {
         if (Instance == null) Instance = this;
-        
+
     }
     private void Start()
     {
